@@ -1,4 +1,5 @@
-﻿using System;
+﻿using snake.clases;
+using System;
 
 namespace snake
 {
@@ -6,7 +7,13 @@ namespace snake
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			HorizontLine line = new HorizontLine(5, 10, 8, '+');
+			line.drow();
+
+			VerticalLine line1 = new VerticalLine(5, 10, 8, '-');
+			line1.drow();
+
+			Console.ReadLine();
 		}
 	}
 }
