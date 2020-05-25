@@ -9,7 +9,6 @@ namespace snake.clases
         LEFT,
         RIGTH,
         UP,
-        DOWN,
-        
+        DOWN,   
     }
 }

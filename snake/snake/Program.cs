@@ -1,37 +1,53 @@
 ﻿using snake.clases;
 using System;
+using System.Threading;
 
 namespace snake
 {
 	class Program
 	{
+
+		const int fieldWidth = 80;
+        const int fielHeigth = 25;
+
 		static void Main(string[] args)
 		{
-			
-			drawBord();
+
+			Walls walls = new Walls(fieldWidth, fielHeigth);
+			walls.draw();
+
+			FoodCreator foodCreator = new FoodCreator(fieldWidth, fielHeigth, '$');
+			Point food = foodCreator.createFood();
+			food.draw();
 
 			Snake snake = new Snake(new Point(4, 4, '+'), 5, Directions.RIGTH);
-			snake.drow();
-			Console.ReadLine();
+			snake.draw();
 
-		}
+            while (true)
+            {
+				if (walls.isHit(snake) || snake.isHitTail())
+				{
+					break;
+				}
 
-		static void drawBord()
-        {
+				if (snake.eat(food))
+                {
+					food = foodCreator.createFood();
+					food.draw();
+                }
+				else
+                {
+					snake.move();
+                }
+				Thread.Sleep(100);
 
-			Console.SetWindowSize(80, 25);
-			Console.SetBufferSize(80, 25);
+				if (Console.KeyAvailable)
+                {
+					ConsoleKeyInfo key = Console.ReadKey();
+					snake.handleKey(key.Key);
+                }
+            }
 
-			HorizontLine topLine = new HorizontLine(0, 78, 0, '*');
-			HorizontLine bottomLine = new HorizontLine(0, 78, 24, '*');
-			VerticalLine leftLine = new VerticalLine(0, 24, 0, '*');
-			VerticalLine rightLine = new VerticalLine(0, 24, 78, '*');
-
-			topLine.drow();
-			bottomLine.drow();
-			leftLine.drow();
-			rightLine.drow();
-        
 		}
 	}
 }

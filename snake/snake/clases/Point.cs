@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -29,9 +30,19 @@ namespace snake.clases
 		{
 			Console.SetCursorPosition(x, y);
 			Console.Write(sym);
-
 		}
 
+		public void clear()
+        {
+			sym = ' ';
+			draw();
+        }
+
+		public bool isHit(Point point)
+        {
+			return this.x == point.x && this.y == point.y;
+        }
+		
 		public void move(int offSet, Directions direction)
         {
 			if (direction == Directions.RIGTH)
@@ -46,12 +57,12 @@ namespace snake.clases
 			
 			if (direction == Directions.UP)
 			{
-				this.y = this.y + offSet;
+				this.y = this.y - offSet;
 			}
 			
 			if (direction == Directions.DOWN)
 			{
-				this.y = this.y - offSet;
+				this.y = this.y + offSet;
 			}
 
 		}
